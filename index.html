@@ -1437,21 +1437,36 @@ const items=['Product Design','Mobile Apps','AI Integration','UX Strategy','Reac
 const t=document.getElementById('mq');
 t.innerHTML=[...items,...items].map(i=>`<div class="mi"><span class="ms"></span>${i}</div>`).join('');
 
-// ── FORM ──
+// ── FORM — calls /api/contact serverless function ──
 async function doSubmit(){
   const btn=document.querySelector('.fsub'),err=document.getElementById('ferr');
   const name=document.getElementById('fn').value.trim();
   const email=document.getElementById('fe').value.trim();
   const msg=document.getElementById('fm').value.trim();
+  const company=document.getElementById('fc').value.trim();
+  const budget=document.getElementById('fb').value;
   err.style.display='none';
   if(!name||!email||!msg){err.textContent='Please fill in name, email, and message.';err.style.display='block';return}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Please enter a valid email.';err.style.display='block';return}
   btn.disabled=true;btn.innerHTML='<span style="display:inline-block;animation:spin 1s linear infinite">◌</span> Sending...';
   try{
-    const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message:msg,company:document.getElementById('fc').value,budget:document.getElementById('fb').value})});
+    const res=await fetch('/api/contact',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name,email,message:msg,company,budget})
+    });
     const data=await res.json();
-    if(data.success){document.getElementById('fwrap').innerHTML=`<div class="f-ok"><div class="f-ok-ico">✦</div><div class="f-ok-t">Message received.</div><p class="f-ok-b">Tony will respond within 24 hours.</p></div>`}else{throw new Error(data.error||'Send failed')}
-  }catch(e){btn.disabled=false;btn.innerHTML='<span class="nav-cta-t">Send Message</span>';err.textContent=e.message||'Something went wrong. Try emailing tony@413vision.com';err.style.display='block'}
+    if(data.success){
+      document.getElementById('fwrap').innerHTML=`<div class="f-ok"><div class="f-ok-ico">✦</div><div class="f-ok-t">Message received.</div><p class="f-ok-b">Tony will respond within 24 hours.</p></div>`;
+    }else{
+      throw new Error(data.error||'Send failed');
+    }
+  }catch(e){
+    btn.disabled=false;
+    btn.innerHTML='Send message →';
+    err.textContent=e.message||'Something went wrong. Try emailing tony@413vision.com';
+    err.style.display='block';
+  }
 }
 </script>
 </body>
