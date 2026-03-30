@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   const NOTION_KEY = process.env.NOTION_TOKEN;
-  const NOTION_DB  = 'd9b0434f-0e0b-4ee9-a050-3c72111e36f1';
+  const NOTION_DB  = '1670465b-f68c-4d02-a401-ee86ee33385b';
 
   const fullMessage = budget ? `${message}\n\nBudget: ${budget}` : message;
   const today = new Date().toISOString().split('T')[0];
