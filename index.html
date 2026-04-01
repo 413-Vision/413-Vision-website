@@ -468,6 +468,12 @@
     @keyframes glowPulse{0%,100%{opacity:0.6}50%{opacity:0.15}}
 
     /* RESPONSIVE */
+    /* App label — desktop: below phone, large */
+    .hero-app-label-mobile{display:none}
+    .hero-app-label-desktop{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:20px;opacity:0;animation:fu .8s .9s ease forwards;}
+    .hero-app-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(0,170,255,0.08);border:1px solid rgba(0,170,255,0.25);border-radius:100px;padding:10px 22px;}
+    .hero-app-name{font-family:var(--fs);font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00AAFF;}
+    .hero-app-url{font-size:12px;color:var(--muted);font-weight:300;letter-spacing:.04em;}
     @media(max-width:960px){
       nav{padding:16px 20px}
       .nav-links{display:none}
@@ -491,6 +497,10 @@
       .contact-inner{grid-template-columns:1fr;gap:48px}
       footer{flex-direction:column;gap:16px;text-align:center;padding:24px 20px}
       .sec-deco{font-size:160px}
+      /* On mobile: hide desktop label, show mobile label above phone */
+      .hero-app-label-desktop{display:none}
+      .hero-app-label-mobile{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:20px;opacity:0;animation:fu .8s .6s ease forwards;}
+      .hero-context-desktop{display:none}
     }
   </style>
 </head>
@@ -555,8 +565,21 @@
   <!-- RIGHT: Rizz IQ Intelligence — iPhone 14 Pro mockup -->
   <div class="hero-r" style="gap:24px;align-items:center;">
 
-    <!-- Context label — centered -->
-    <div style="text-align:center;opacity:0;animation:fu .8s .6s ease forwards;max-width:320px;">
+    <!-- MOBILE ONLY: App label above phone (replaces context copy) -->
+    <div class="hero-app-label-mobile">
+      <a href="https://getrizziq.com" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div class="hero-app-pill" style="cursor:pointer;transition:background .2s,border-color .2s;" onmouseenter="this.style.background='rgba(0,170,255,0.14)';this.style.borderColor='rgba(0,170,255,0.45)';" onmouseleave="this.style.background='rgba(0,170,255,0.08)';this.style.borderColor='rgba(0,170,255,0.25)';">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" fill="#00AAFF"/><path d="M19 15L19.8 17.2L22 18L19.8 18.8L19 21L18.2 18.8L16 18L18.2 17.2L19 15Z" fill="#00AAFF" opacity=".6"/></svg>
+          <span class="hero-app-name">Rizz IQ</span>
+          <span style="width:1px;height:14px;background:rgba(0,170,255,0.25);display:block;"></span>
+          <span class="hero-app-url">getrizziq.com ↗</span>
+        </div>
+      </a>
+      <p style="font-size:12px;line-height:1.6;color:var(--muted);font-weight:300;text-align:center;max-width:280px;">Upload screenshots. Get investment scores, reactance analysis, and a green-light read on your window to escalate.</p>
+    </div>
+
+    <!-- DESKTOP ONLY: Context copy shown above phone -->
+    <div class="hero-context-desktop" style="text-align:center;opacity:0;animation:fu .8s .6s ease forwards;max-width:320px;">
       <div style="font-family:var(--fs);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;"><span style="width:16px;height:1px;background:var(--cyan);display:block;"></span>Live Intelligence Layer<span style="width:16px;height:1px;background:var(--cyan);display:block;"></span></div>
       <p style="font-size:13px;line-height:1.7;color:var(--muted);font-weight:300;">Upload screenshots. Get investment scores, reactance analysis, and a green-light read on your window to escalate.</p>
     </div>
@@ -733,13 +756,16 @@
         </div><!-- /iphone-screen -->
       </div><!-- /iphone chassis -->
 
-      <!-- App label -->
-      <div style="text-align:center;margin-top:16px;opacity:0;animation:fu .8s .9s ease forwards;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,170,255,0.08);border:1px solid rgba(0,170,255,0.2);border-radius:100px;padding:6px 16px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" fill="#00AAFF"/></svg>
-          <span style="font-family:var(--fs);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#00AAFF;">Rizz IQ</span>
-          <span style="font-size:10px;color:var(--muted);font-weight:300;">getrizziq.com</span>
-        </div>
+      <!-- DESKTOP ONLY: App label — large, prominent, below phone -->
+      <div class="hero-app-label-desktop">
+        <a href="https://getrizziq.com" target="_blank" rel="noopener" style="text-decoration:none;">
+          <div class="hero-app-pill" style="cursor:pointer;transition:background .2s,border-color .2s;" onmouseenter="this.style.background='rgba(0,170,255,0.14)';this.style.borderColor='rgba(0,170,255,0.45)';" onmouseleave="this.style.background='rgba(0,170,255,0.08)';this.style.borderColor='rgba(0,170,255,0.25)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z" fill="#00AAFF"/><path d="M19 15L19.8 17.2L22 18L19.8 18.8L19 21L18.2 18.8L16 18L18.2 17.2L19 15Z" fill="#00AAFF" opacity=".6"/></svg>
+            <span class="hero-app-name">Rizz IQ</span>
+            <span style="width:1px;height:16px;background:rgba(0,170,255,0.25);display:block;"></span>
+            <span class="hero-app-url">getrizziq.com ↗</span>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -975,11 +1001,13 @@
       <!-- INFO SECTION — plain block, always below wt -->
       <div class="wi">
         <div>
-          <div class="wtag">Live · iOS + Android</div>
+          <a href="https://getrizziq.com" target="_blank" rel="noopener" style="text-decoration:none;">
+            <div class="wtag" style="display:inline-flex;align-items:center;gap:4px;">Live · iOS + Android <span style="font-size:8px;">↗</span></div>
+          </a>
           <div class="wname">Rizz IQ</div>
           <div class="wdesc">An AI dating coach that reads your conversations and tells you exactly what to say, when to say it, and why it works. Built on Claude + GPT-4o Vision. The unfair advantage.</div>
         </div>
-        <a href="https://getrizziq.com" class="warr">↗</a>
+        <a href="https://getrizziq.com" target="_blank" rel="noopener" class="warr">↗</a>
       </div>
     </div><!-- /wc rizz iq -->
 
